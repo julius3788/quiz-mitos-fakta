@@ -14,7 +14,7 @@ function App() {
 
   // ✅ Ambil & acak data quiz dari public/quizData.json
   useEffect(() => {
-    fetch("/quizData.json")
+    fetch(`${import.meta.env.BASE_URL}quizData.json`)
       .then((res) => res.json())
       .then((data) => {
         // Acak urutan dan ambil 10 pertanyaan pertama
