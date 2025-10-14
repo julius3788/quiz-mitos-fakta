@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "text": "Minum kopi bisa menyebabkan dehidrasi.",
+    "answer": "mitos",
+    "explanation": "Kafein bersifat diuretik ringan, tapi tidak menyebabkan dehidrasi jika dikonsumsi wajar."
+  },
+  {
+    "id": 2,
+    "text": "Tidur kurang dari 6 jam setiap malam bisa berdampak buruk bagi kesehatan jantung.",
+    "answer": "fakta",
+    "explanation": "Tidur cukup sangat penting untuk menjaga fungsi jantung dan tekanan darah normal."
+  },
+  {
+    "id": 3,
+    "text": "Makan malam setelah jam 8 pasti bikin gemuk.",
+    "answer": "mitos",
+    "explanation": "Kenaikan berat badan lebih dipengaruhi oleh total kalori harian, bukan jam makan."
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "question": "Belajar di Program Studi Bisnis Digital berarti harus bisa coding seperti anak Informatika.",
+    "correct": "Mitos",
+    "explanation": "Mahasiswa Bisnis Digital belajar memahami teknologi untuk strategi bisnis dan pemasaran digital, bukan menjadi programmer. Fokusnya ada pada strategi, data, dan inovasi digital."
+  },
+  {
+    "question": "Bisnis Digital hanya tentang jualan online.",
+    "correct": "Mitos",
+    "explanation": "Bisnis Digital mencakup transformasi model bisnis, analitik data, strategi konten, dan inovasi berbasis teknologi—tidak hanya e-commerce."
+  },
+  {
+    "question": "Pemasaran digital tidak butuh kreativitas, cukup tahu cara pakai iklan berbayar.",
+    "correct": "Mitos",
+    "explanation": "Kreativitas tetap kunci utama. Algoritma hanya alat, tapi ide dan storytelling yang membuat konten berhasil menarik perhatian audiens."
+  },
+  {
+    "question": "Mahasiswa Bisnis Digital harus punya ide startup untuk bisa sukses.",
+    "correct": "Mitos",
+    "explanation": "Tidak harus punya startup. Banyak lulusan sukses bekerja di bidang digital marketing, data analytics, product management, dan konsultasi bisnis digital."
+  },
+  {
+    "question": "Mahasiswa Bisnis Digital itu kalau skripsi pasti tentang konten TikTok.",
+    "correct": "Mitos",
+    "explanation": "Bisa banget nulis skripsi soal AI marketing, digital consumer behavior, data analytics, sampai metaverse branding!"
+  },
+  {
+    "question": "Data adalah minyak baru (the new oil) dalam dunia digital.",
+    "correct": "Fakta",
+    "explanation": "Data jadi bahan bakar pengambilan keputusan di bisnis modern — dari rekomendasi Netflix sampai iklan personal di Instagram."
+  },
+  {
+    "question": "Algoritma TikTok lebih tahu selera kamu daripada kamu sendiri.",
+    "correct": "Fakta",
+    "explanation": "TikTok mengukur interaksi mikro seperti durasi tontonan, reaksi wajah (dari kamera), dan kecepatan scroll untuk mengenali preferensi pengguna. Creepy, tapi nyata!"
+  },
+  {
+    "question": "Brand yang tidak punya kehadiran digital akan sulit bersaing di era sekarang.",
+    "correct": "Fakta",
+    "explanation": "Konsumen modern mencari informasi, membandingkan produk, dan melakukan pembelian secara online. Kehadiran digital jadi syarat untuk tetap relevan."
+  },
+  {
+    "question": "Pelajaran Bisnis Digital gak cuma belajar basic coding.",
+    "correct": "Fakta",
+    "explanation": "Kita belajar akuntansi, marketing digital, UI/UX, strategi bisnis digital, dan lainnya."
+  },
+  {
+    "question": "Lulusnya cuma bisa jadi admin medsos.",
+    "correct": "Mitos",
+    "explanation": "Kariernya sangat luas seperti digital marketer, data analyst, startup founder, product manager, brand strategist, dan banyak lagi."
+  },
+  {
+    "question": "Jurusan Bisnis Digital semakin meningkat peminatnya karena mengikuti zaman.",
+    "correct": "Fakta",
+    "explanation": "Termasuk kita, yang selalu mau up to date menyesuaikan zaman."
+  },
+  {
+    "question": "Dosen Bisnis Digital semua gaul dan update.",
+    "correct": "Fakta",
+    "explanation": "Dosen Bisnis Digital kita semuanya seru, gaul, dan edgy abis!"
+  },
+  {
+    "question": "Harus jago IT dulu baru bisa masuk, dan banyak teorinya.",
+    "correct": "Mitos",
+    "explanation": "Yang penting mau belajar dan terbuka dengan teknologi. Semua skill diajarkan bertahap, dan gak cuma teori—ada project nyatanya juga!"
+  },
+  {
+    "question": "Bisnis Digital cuma buat yang mau kerja di perusahaan.",
+    "correct": "Mitos",
+    "explanation": "Cocok juga buat yang mau punya bisnis sendiri karena ilmunya aplikatif untuk entrepreneur."
+  }
+]
