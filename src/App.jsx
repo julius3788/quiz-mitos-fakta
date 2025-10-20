@@ -158,6 +158,7 @@ export default function App() {
                 total={randomQuestions.length}
                 current={currentQuestion}
                 onAnswer={handleAnswer}
+                playerName={playerName} 
               />
             </div>
           );

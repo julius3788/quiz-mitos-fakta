@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function QuizCard({ question, total, current, onAnswer }) {
+export default function QuizCard({ question, total, current, onAnswer, playerName }) { // ← TAMBAH playerName di props
   const [selected, setSelected] = useState(null);
   const [showExplanation, setShowExplanation] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
@@ -18,12 +18,7 @@ export default function QuizCard({ question, total, current, onAnswer }) {
   };
 
   const handleAnswer = (ans) => {
-    // LOGIKA BARU: Bandingkan string langsung
     const correct = ans === question.correct;
-    
-    console.log("User selected:", ans);
-    console.log("Correct answer from data:", question.correct);
-    console.log("Is correct?", correct);
     
     setSelected(ans);
     setIsCorrect(correct);
@@ -34,26 +29,22 @@ export default function QuizCard({ question, total, current, onAnswer }) {
       setShowExplanation(false);
       setSelected(null);
       onAnswer(correct);
-    }, 2500);
+    }, 1500); // Waktu yang sudah dipendekkan
   };
 
   const progress = ((current + 1) / total) * 100;
 
-  // Function to determine button color based on option
   const getButtonColor = (opt) => {
     if (selected) {
-      // When an answer is selected
       if (selected === opt) {
         const isThisCorrect = opt === question.correct;
         return isThisCorrect
           ? "bg-green-500 border-green-500 text-white scale-105"
           : "bg-red-500 border-red-500 text-white scale-105";
       }
-      // Other button when one is selected
       return "bg-gray-300 border-gray-300 text-gray-500 cursor-not-allowed";
     }
     
-    // Default colors before selection
     return opt === "Fakta" 
       ? "bg-green-500 border-green-500 text-white hover:bg-green-600 hover:border-green-600"
       : "bg-red-500 border-red-500 text-white hover:bg-red-600 hover:border-red-600";
@@ -61,18 +52,33 @@ export default function QuizCard({ question, total, current, onAnswer }) {
 
   return (
     <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-lg w-full max-w-lg text-center transition-all animate-fadeIn">
-      {/* Progress bar */}
-      <div className="w-full h-2 bg-gray-200 rounded-full mb-6 overflow-hidden">
-        <div
-          className="h-2 bg-blue-500 transition-all duration-500"
-          style={{ width: `${progress}%` }}
-        />
+      {/* Header dengan nama player dan progress */}
+      <div className="flex justify-between items-center mb-6">
+        <div className="text-left">
+          <p className="text-sm text-gray-600">Halo,</p>
+          <p className="font-semibold text-primary">{playerName}</p>
+        </div>
+        
+        {/* Progress bar */}
+        <div className="flex-1 mx-4">
+          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div
+              className="h-2 bg-blue-500 transition-all duration-500"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <p className="text-xs text-gray-500 mt-1">
+            {current + 1} / {total}
+          </p>
+        </div>
       </div>
 
+      {/* Pertanyaan */}
       <h2 className="text-lg font-semibold text-gray-800 mb-8 leading-relaxed">
         {question.question}
       </h2>
 
+      {/* Tombol Fakta/Mitos */}
       <div className="flex justify-center gap-4 sm:gap-6">
         {["Fakta", "Mitos"].map((opt) => (
           <button
@@ -86,6 +92,7 @@ export default function QuizCard({ question, total, current, onAnswer }) {
         ))}
       </div>
 
+      {/* Penjelasan */}
       {showExplanation && (
         <div
           className={`mt-6 text-sm p-4 rounded-2xl ${
