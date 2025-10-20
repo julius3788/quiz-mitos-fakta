@@ -1,1 +1,35 @@
 @import "tailwindcss";
+
+/* Variabel warna utama untuk dipakai di seluruh komponen */
+:root {
+  --color-primary: oklch(65% 0.23 250);
+  --color-secondary: oklch(70% 0.22 180);
+}
+
+/* Styling dasar */
+body {
+  @apply font-sans;
+  background: linear-gradient(
+    to bottom right,
+    oklch(98% 0.02 250),
+    oklch(95% 0.03 200)
+  );
+  color: oklch(20% 0 0);
+  margin: 0;
+}
+
+/* Animasi global */
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-in-out both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

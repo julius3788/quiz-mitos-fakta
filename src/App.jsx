@@ -1,103 +1,184 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import QuizCard from "./components/QuizCard";
-import Result from "./components/Result";
 import StartScreen from "./components/StartScreen";
+import Result from "./components/Result";
 
-function App() {
-  const [name, setName] = useState("");
-  const [questions, setQuestions] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+export default function App() {
+  const [quizData, setQuizData] = useState([]);
+  const [randomQuestions, setRandomQuestions] = useState([]);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
-  const [showResult, setShowResult] = useState(false);
-  const [feedback, setFeedback] = useState("");
+  const [gameState, setGameState] = useState("start"); // "start", "playing", "finished"
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [playerName, setPlayerName] = useState("");
 
-  // ✅ Ambil & acak data quiz dari public/quizData.json
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}quizData.json`)
-      .then((res) => res.json())
-      .then((data) => {
-        // Acak urutan dan ambil 10 pertanyaan pertama
-        const shuffled = data.sort(() => 0.5 - Math.random()).slice(0, 10);
-        setQuestions(shuffled);
-        setLoading(false);
-      })
-      .catch((err) => console.error("Gagal memuat data quiz:", err));
+    loadQuizData();
   }, []);
 
-  // ✅ Simpan nama pemain dari StartScreen
-  const handleStart = (playerName) => {
-    setName(playerName);
+  const loadQuizData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const response = await fetch(`${import.meta.env.BASE_URL}quizData.json`);
+      
+      if (!response.ok) {
+        throw new Error(`Failed to load quiz data: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      // Handle both array format and {questions: []} format
+      const questions = Array.isArray(data) ? data : data.questions || [];
+      
+      if (questions.length === 0) {
+        throw new Error("No questions found in quiz data");
+      }
+      
+      setQuizData(questions);
+    } catch (err) {
+      console.error("Error loading quiz data:", err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // ✅ Logika jawaban benar/salah
-  const handleAnswer = (selected) => {
-    const currentQuestion = questions[currentIndex];
-    if (selected === currentQuestion.correct) {
-      setScore(score + 1);
-      setFeedback(`✅ Benar! ${currentQuestion.explanation}`);
-    } else {
-      setFeedback(`❌ Salah! ${currentQuestion.explanation}`);
+  // Function to get random questions
+  const getRandomQuestions = () => {
+    if (quizData.length === 0) return [];
+    
+    // Shuffle array and take first 10 questions
+    const shuffled = [...quizData]
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 10);
+    
+    return shuffled;
+  };
+
+  const handleAnswer = (isCorrect) => {
+    if (isCorrect) {
+      setScore(prev => prev + 1);
     }
 
-    // Lanjut ke soal berikut setelah 1.5 detik
-    setTimeout(() => {
-      if (currentIndex + 1 < questions.length) {
-        setCurrentIndex(currentIndex + 1);
-        setFeedback("");
-      } else {
-        setShowResult(true);
-      }
-    }, 2000);
+    // Move to next question or finish quiz
+    if (currentQuestion + 1 < randomQuestions.length) {
+      setCurrentQuestion(prev => prev + 1);
+    } else {
+      setGameState("finished");
+    }
   };
 
-  // ✅ Ulangi permainan dari awal
-  const handleRestart = () => {
-    setCurrentIndex(0);
+  const handleStartQuiz = (name) => {
+    setPlayerName(name);
+    const randomQs = getRandomQuestions();
+    setRandomQuestions(randomQs);
+    setCurrentQuestion(0);
     setScore(0);
-    setShowResult(false);
-    setFeedback("");
-    setName("");
+    setGameState("playing");
   };
 
-  // ✅ Tampilkan loading
-  if (loading) {
-    return (
-      <div className="min-h-screen flex justify-center items-center text-xl">
-        Memuat soal...
-      </div>
-    );
-  }
+  const handleRestartQuiz = () => {
+    const randomQs = getRandomQuestions();
+    setRandomQuestions(randomQs);
+    setCurrentQuestion(0);
+    setScore(0);
+    setGameState("playing");
+  };
+
+  const handleBackToStart = () => {
+    setCurrentQuestion(0);
+    setScore(0);
+    setPlayerName(""); // Reset nama juga jika kembali ke start
+    setGameState("start");
+  };
+
+  const handleRetryLoad = () => {
+    loadQuizData();
+  };
+
+  // Render different states
+  const renderContent = () => {
+    switch (gameState) {
+      case "start":
+        return <StartScreen onStart={handleStartQuiz} />;
+
+      case "finished":
+        return (
+          <Result 
+            score={score} 
+            total={randomQuestions.length} 
+            onRestart={handleRestartQuiz}
+            onBackToStart={handleBackToStart}
+            playerName={playerName}  // ← INI YANG DITAMBAHKAN
+          />
+        );
+
+      case "playing":
+        if (loading) {
+          return (
+            <div className="min-h-screen flex items-center justify-center">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+                <p className="text-gray-600 text-lg">⏳ Memuat pertanyaan...</p>
+              </div>
+            </div>
+          );
+        }
+
+        if (error) {
+          return (
+            <div className="min-h-screen flex items-center justify-center">
+              <div className="text-center bg-white rounded-3xl p-8 shadow-lg max-w-md">
+                <div className="text-6xl mb-4">😞</div>
+                <h2 className="text-xl font-semibold text-gray-800 mb-2">
+                  Gagal Memuat Quiz
+                </h2>
+                <p className="text-gray-600 mb-4 text-sm">
+                  {error}
+                </p>
+                <button
+                  onClick={handleRetryLoad}
+                  className="bg-primary text-white px-6 py-3 rounded-full font-medium hover:bg-primary/80 transition-colors"
+                >
+                  Coba Lagi
+                </button>
+              </div>
+            </div>
+          );
+        }
+
+        if (randomQuestions.length > 0 && randomQuestions[currentQuestion]) {
+          return (
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10 p-4">
+              <QuizCard
+                question={randomQuestions[currentQuestion]}
+                total={randomQuestions.length}
+                current={currentQuestion}
+                onAnswer={handleAnswer}
+              />
+            </div>
+          );
+        }
+
+        return (
+          <div className="min-h-screen flex items-center justify-center">
+            <div className="text-center">
+              <p className="text-gray-600 text-lg">Tidak ada pertanyaan tersedia.</p>
+            </div>
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-100 to-teal-200 p-6">
-      {!name ? (
-        <StartScreen onStart={handleStart} />
-      ) : !showResult ? (
-        <>
-          <h2 className="text-3xl font-bold mb-4 text-gray-800">
-            Halo, {name} 👋
-          </h2>
-          <QuizCard
-            question={questions[currentIndex]}
-            onAnswer={handleAnswer}
-          />
-          {feedback && (
-            <p className="mt-6 text-2xl font-medium text-gray-700">{feedback}</p>
-          )}
-          <p className="mt-4 text-lg text-gray-600">
-            Soal {currentIndex + 1} dari {questions.length}
-          </p>
-        </>
-      ) : (
-        <Result
-          score={score}
-          total={questions.length}
-          onRestart={handleRestart}
-        />
-      )}
+    <div className="min-h-screen bg-gradient-to-br from-primary/10 to-secondary/10">
+      {renderContent()}
     </div>
   );
 }
-
-export default App;
