@@ -2,6 +2,7 @@
 
 /* Variabel warna utama untuk dipakai di seluruh komponen */
 :root {
+    font-size: 18px;
   --color-primary: oklch(65% 0.23 250);
   --color-secondary: oklch(70% 0.22 180);
 }
