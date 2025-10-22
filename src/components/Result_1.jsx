@@ -2,10 +2,14 @@ import React from "react";
 
 export default function Result({ score, total, onRestart, playerName }) {
   const pct = (score / total) * 100;
-  
-  // Link Google Form kamu
-  const googleFormLink = "https://forms.gle/ZYnwsFtrufe42tDUA";
+  const msg =
+    pct >= 80
+      ? "🔥 Hebat! Kamu paham banget dunia digital!"
+      : pct >= 50
+      ? "⚡ Lumayan! Masih bisa ditingkatkan."
+      : "💡 Yuk belajar lagi! Dunia digital seru kok.";
 
+  // Emoji berdasarkan skor
   const getEmoji = () => {
     if (pct >= 80) return "🎉";
     if (pct >= 60) return "👍";
@@ -16,8 +20,7 @@ export default function Result({ score, total, onRestart, playerName }) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-primary/20 text-gray-800 text-center p-4">
       <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 sm:p-10 shadow-lg max-w-md w-full">
-        
-        {/* Header */}
+        {/* Header dengan nama */}
         <div className="mb-6">
           <h2 className="text-3xl font-bold mb-2 text-gray-800">Hasil Quiz</h2>
           <p className="text-lg text-gray-600">
@@ -25,8 +28,10 @@ export default function Result({ score, total, onRestart, playerName }) {
           </p>
         </div>
 
-        {/* Emoji & Score */}
+        {/* Emoji besar */}
         <div className="text-6xl mb-4">{getEmoji()}</div>
+
+        {/* Skor */}
         <div className="mb-6">
           <p className="text-2xl mb-2">
             <span className="text-primary font-bold">{score}</span> / {total}
@@ -40,31 +45,21 @@ export default function Result({ score, total, onRestart, playerName }) {
           <p className="text-sm text-gray-600">{Math.round(pct)}% benar</p>
         </div>
 
-        {/* BAGIAN BARU: LINK KUESIONER */}
-        <div className="mb-6 p-4 bg-blue-50 rounded-2xl border-2 border-blue-200">
-          <h3 className="font-semibold text-blue-800 mb-2">🎯 Bantu Penelitian Kami!</h3>
-          <p className="text-sm text-blue-700 mb-3">
-            Butuh waktu 5 menit untuk isi kuesioner. Kontribusi Anda sangat berharga untuk pengembangan pendidikan bisnis digital!
-          </p>
-          <a 
-            href={googleFormLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition-colors text-sm"
-          >
-            📝 Isi Kuesioner Sekarang
-          </a>
+        {/* Pesan */}
+        <div className="mb-8">
+          <p className="text-gray-700 text-lg font-medium">{msg}</p>
         </div>
 
-        {/* Tombol Main Lagi */}
+        {/* Tombol */}
         <button
           onClick={onRestart}
-          className="bg-blue-900 text-white font-semibold px-8 py-4 rounded-full shadow-md hover:bg-blue-800 hover:scale-105 focus:ring-2 focus:ring-blue-300 transition-all duration-300 w-full text-lg mb-3"
+          className="bg-blue-900 text-white font-semibold px-8 py-4 rounded-full shadow-md hover:bg-blue-800 hover:scale-105 focus:ring-2 focus:ring-blue-300 transition-all duration-300 w-full text-lg"
         >
           🔁 Main Lagi
         </button>
 
-        <p className="text-xs text-gray-500">
+        {/* Info kecil */}
+        <p className="text-xs text-gray-500 mt-4">
           * Pertanyaan akan diacak ulang setiap memulai quiz baru
         </p>
       </div>
