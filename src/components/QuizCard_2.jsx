@@ -1,44 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-export default function QuizCard({ question, total, current, onAnswer, playerName, language }) {
+export default function QuizCard({ question, total, current, onAnswer, playerName }) {
   const [selected, setSelected] = useState(null);
   const [showExplanation, setShowExplanation] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [timeLeft, setTimeLeft] = useState(30);
   const [isTimerActive, setIsTimerActive] = useState(true);
-  const [criticalTime, setCriticalTime] = useState(false);
-
-  // Konten multilingual untuk QuizCard
-  const content = {
-    id: {
-      hello: "Halo,",
-      timeLeft: "Sisa Waktu",
-      questionCount: "Pertanyaan",
-      fact: "Fakta",
-      myth: "Mitos",
-      hurry: "⚡️ Cepat! Waktu hampir habis!",
-      timeUp: "⏰ Waktu Habis!",
-      correct: "✅ Benar!",
-      wrong: "❌ Salah!",
-      correctAnswer: "Jawaban benar:",
-      explanation: "Penjelasan"
-    },
-    en: {
-      hello: "Hello,",
-      timeLeft: "Time Left",
-      questionCount: "Question",
-      fact: "Fact",
-      myth: "Myth",
-      hurry: "⚡️ Hurry! Time is running out!",
-      timeUp: "⏰ Time's Up!",
-      correct: "✅ Correct!",
-      wrong: "❌ Wrong!",
-      correctAnswer: "Correct answer:",
-      explanation: "Explanation"
-    }
-  };
-
-  const currentContent = content[language];
+  const [criticalTime, setCriticalTime] = useState(false); // State untuk efek kritis
 
   const playSound = (correct) => {
     const ctx = new AudioContext();
@@ -172,18 +140,9 @@ export default function QuizCard({ question, total, current, onAnswer, playerNam
       return "bg-gray-300 border-gray-300 text-gray-500 cursor-not-allowed";
     }
     
-    // Gunakan konten multilingual untuk tombol
-    const factText = currentContent.fact;
-    const mythText = currentContent.myth;
-    
-    return opt === factText 
+    return opt === "Fakta" 
       ? "bg-green-500 border-green-500 text-white hover:bg-green-600 hover:border-green-600"
       : "bg-red-500 border-red-500 text-white hover:bg-red-600 hover:border-red-600";
-  };
-
-  // Fungsi untuk mendapatkan teks tombol berdasarkan bahasa
-  const getButtonText = (type) => {
-    return type === "fact" ? currentContent.fact : currentContent.myth;
   };
 
   return (
@@ -194,7 +153,7 @@ export default function QuizCard({ question, total, current, onAnswer, playerNam
       {/* Header dengan nama & timer yang enhanced */}
       <div className="flex justify-between items-center mb-6">
         <div className="text-left">
-          <p className="text-sm text-gray-600">{currentContent.hello}</p>
+          <p className="text-sm text-gray-600">Halo,</p>
           <p className="font-semibold text-primary">{playerName}</p>
         </div>
         
@@ -205,7 +164,7 @@ export default function QuizCard({ question, total, current, onAnswer, playerNam
           }`}>
             {timeLeft}s
           </div>
-          <p className="text-xs text-gray-500 mt-1">{currentContent.timeLeft}</p>
+          <p className="text-xs text-gray-500 mt-1">Sisa Waktu</p>
         </div>
       </div>
 
@@ -216,7 +175,7 @@ export default function QuizCard({ question, total, current, onAnswer, playerNam
           style={{ width: `${progress}%` }}
         />
         <p className="text-xs text-gray-500 mt-1">
-          {currentContent.questionCount} {current + 1} / {total}
+          {current + 1} / {total}
         </p>
       </div>
 
@@ -227,9 +186,9 @@ export default function QuizCard({ question, total, current, onAnswer, playerNam
         {question.question}
       </h2>
 
-      {/* Tombol Fakta/Mitos dengan efek glow - menggunakan konten multilingual */}
+      {/* Tombol Fakta/Mitos dengan efek glow */}
       <div className="flex justify-center gap-4 sm:gap-6">
-        {[getButtonText("fact"), getButtonText("myth")].map((opt) => (
+        {["Fakta", "Mitos"].map((opt) => (
           <button
             key={opt}
             onClick={() => handleAnswer(opt)}
@@ -247,7 +206,7 @@ export default function QuizCard({ question, total, current, onAnswer, playerNam
       {criticalTime && timeLeft <= 10 && (
         <div className="mt-4 p-3 bg-red-100 border border-red-300 rounded-xl animate-pulse">
           <p className="text-red-700 text-sm font-medium flex items-center justify-center">
-            {currentContent.hurry}
+            ⚡️ Cepat! Waktu hampir habis!
           </p>
         </div>
       )}
@@ -294,15 +253,15 @@ export default function QuizCard({ question, total, current, onAnswer, playerNam
           <p>
             <strong>
               {selected === "TIME_UP" 
-                ? currentContent.timeUp
-                : isCorrect ? currentContent.correct : currentContent.wrong
+                ? "⏰ Waktu Habis!" 
+                : isCorrect ? "✅ Benar!" : "❌ Salah!"
               }
             </strong>{" "}
             {question.explanation}
           </p>
           {selected === "TIME_UP" && (
             <p className="text-xs mt-1">
-              {currentContent.correctAnswer} <strong>{question.correct}</strong>
+              Jawaban benar: <strong>{question.correct}</strong>
             </p>
           )}
         </div>

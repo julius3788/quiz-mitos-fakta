@@ -1,0 +1,72 @@
+[
+  {
+    "question": "Studying in the Digital Business Study Program means you have to be able to code like Informatics students.",
+    "correct": "Myth",
+    "explanation": "Digital Business students learn to understand technology for business strategy and digital marketing, not to become programmers. The focus is on strategy, data, and digital innovation."
+  },
+  {
+    "question": "Digital Business is only about online selling.",
+    "correct": "Myth",
+    "explanation": "Digital Business covers business model transformation, data analytics, content strategy, and technology-based innovation—not just e-commerce."
+  },
+  {
+    "question": "Digital marketing doesn't require creativity, just knowing how to use paid ads.",
+    "correct": "Myth",
+    "explanation": "Creativity remains the key. Algorithms are just tools, but ideas and storytelling are what make content successful in attracting audience attention."
+  },
+  {
+    "question": "Digital Business students must have startup ideas to be successful.",
+    "correct": "Myth",
+    "explanation": "You don't have to have a startup. Many graduates work successfully in digital marketing, data analytics, product management, and digital business consulting."
+  },
+  {
+    "question": "Digital Business students' thesis must be about TikTok content.",
+    "correct": "Myth",
+    "explanation": "You can write a thesis about AI marketing, digital consumer behavior, data analytics, even metaverse branding!"
+  },
+  {
+    "question": "Data is the new oil in the digital world.",
+    "correct": "Fact",
+    "explanation": "Data fuels decision-making in modern business—from Netflix recommendations to personalized ads on Instagram."
+  },
+  {
+    "question": "TikTok's algorithm knows your tastes better than you do.",
+    "correct": "Fact",
+    "explanation": "TikTok measures micro-interactions like watch duration, facial reactions (from camera), and scroll speed to recognize user preferences. Creepy, but real!"
+  },
+  {
+    "question": "Brands without a digital presence will struggle to compete in today's era.",
+    "correct": "Fact",
+    "explanation": "Modern consumers search for information, compare products, and make purchases online. Digital presence is a requirement to remain relevant."
+  },
+  {
+    "question": "Digital Business lessons aren't just about learning basic coding.",
+    "correct": "Fact",
+    "explanation": "We learn accounting, digital marketing, UI/UX, digital business strategy, and more."
+  },
+  {
+    "question": "Graduates can only become social media admins.",
+    "correct": "Myth",
+    "explanation": "Career opportunities are very broad, such as digital marketer, data analyst, startup founder, product manager, brand strategist, and many more."
+  },
+  {
+    "question": "The Digital Business study program is increasingly popular because it keeps up with the times.",
+    "correct": "Fact",
+    "explanation": "Including us, who always want to stay up to date with the times."
+  },
+  {
+    "question": "All Digital Business lecturers are cool and up-to-date.",
+    "correct": "Fact",
+    "explanation": "Our Digital Business lecturers are all fun, cool, and super edgy!"
+  },
+  {
+    "question": "You must be good at IT first to enroll, and it's very theoretical.",
+    "correct": "Myth",
+    "explanation": "What's important is the willingness to learn and being open to technology. All skills are taught step by step, and it's not just theory—there are real projects too!"
+  },
+  {
+    "question": "Digital Business is only for those who want to work in companies.",
+    "correct": "Myth",
+    "explanation": "It's also suitable for those who want to have their own business because the knowledge is applicable for entrepreneurs."
+  }
+]
